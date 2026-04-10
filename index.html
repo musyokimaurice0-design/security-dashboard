@@ -1,25 +1,27 @@
-<h1>Login Events</h1>
-<pre id="data">Loading...</pre>
-
 <script>
 const url = "https://eyapcdjmvonfahvitixr.supabase.co/rest/v1/login_events?select=*"
 const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YXBjZGptdm9uZmFodml0aXhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3NzM2MzQsImV4cCI6MjA5MTM0OTYzNH0.6hnIa4LiBwylRL3CF1MPk-BwyrpduW0_Nr3-M3dLJYs"
 
 async function loadData() {
-  try {
-    const res = await fetch(url, {
-      method: "GET",
-      headers: {
-        apikey: key,
-        Authorization: "Bearer " + key
-      }
-    })
+  const res = await fetch(url, {
+    headers: {
+      apikey: key,
+      Authorization: "Bearer " + key
+    }
+  })
 
-    const text = await res.text()
-    document.getElementById("data").innerText = text
-  } catch (err) {
-    document.getElementById("data").innerText = err.message
+  const data = await res.json()
+
+  let html = ""
+
+  for (let i = 0; i < data.length; i++) {
+    html += data[i].user_id + " | " +
+            data[i].risk + " | " +
+            data[i].action + " | " +
+            data[i].reason + "<br>"
   }
+
+  document.getElementById("data").innerHTML = html
 }
 
 loadData()
