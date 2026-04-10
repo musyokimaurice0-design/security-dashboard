@@ -1,30 +1,25 @@
+<h1>Login Events</h1>
+<pre id="data">Loading...</pre>
+
 <script>
 const url = "https://eyapcdjmvonfahvitixr.supabase.co/rest/v1/login_events?select=*"
 const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YXBjZGptdm9uZmFodml0aXhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3NzM2MzQsImV4cCI6MjA5MTM0OTYzNH0.6hnIa4LiBwylRL3CF1MPk-BwyrpduW0_Nr3-M3dLJYs"
 
 async function loadData() {
-  const res = await fetch(url, {
-    method: "GET",
-    headers: {
-      apikey: key,
-      Authorization: "Bearer " + key
-    }
-  })
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        apikey: key,
+        Authorization: "Bearer " + key
+      }
+    })
 
-  const data = await res.json()
-
-  document.getElementById("data").innerHTML =
-    "<table border='1' cellpadding='8'>" +
-    "<tr><th>User</th><th>Risk</th><th>Action</th><th>Reason</th></tr>" +
-    data.map(d =>
-      `<tr>
-        <td>${d.user_id}</td>
-        <td>${d.risk}</td>
-        <td>${d.action}</td>
-        <td>${d.reason}</td>
-      </tr>`
-    ).join("") +
-    "</table>"
+    const text = await res.text()
+    document.getElementById("data").innerText = text
+  } catch (err) {
+    document.getElementById("data").innerText = err.message
+  }
 }
 
 loadData()
