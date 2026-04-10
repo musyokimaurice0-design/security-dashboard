@@ -22,10 +22,16 @@ async function loadData() {
     let html = ""
 
     for (let i = 0; i < data.length; i++) {
-      html += data[i].user_id + " | " +
-              data[i].risk + " | " +
-              data[i].action + " | " +
-              data[i].reason + "<br>"
+     let color = "black"
+
+if (data[i].action === "BLOCK") color = "red"
+else if (data[i].action === "FLAG") color = "orange"
+else color = "green"
+
+html += `<span style="color:${color}">
+  ${data[i].user_id} | ${data[i].risk} | ${data[i].action} | ${data[i].reason}
+</span><br>`
+
     }
 
     document.getElementById("data").innerHTML = html || "No data found"
