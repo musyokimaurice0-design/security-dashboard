@@ -1,23 +1,19 @@
 <script>
 const url = "https://eyapcdjmvonfahvitixr.supabase.co/rest/v1/login_events?select=*"
-
-const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5YXBjZGptdm9uZmFodml0aXhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3NzM2MzQsImV4cCI6MjA5MTM0OTYzNH0.6hnIa4LiBwylRL3CF1MPk-BwyrpduW0_Nr3-M3dLJYs"
+const key = "YOUR_ANON_KEY"
 
 async function loadData() {
   const res = await fetch(url, {
-    method: "GET",
     headers: {
       apikey: key,
       Authorization: "Bearer " + key
     }
   })
 
-  const data = await res.json()
+  const text = await res.text()
+  console.log(text)
 
-  document.getElementById("data").innerHTML =
-    data.map(d =>
-      `${d.user_id} | ${d.risk} | ${d.action} | ${d.reason}`
-    ).join("<br>")
+  document.getElementById("data").innerText = text
 }
 
 loadData()
