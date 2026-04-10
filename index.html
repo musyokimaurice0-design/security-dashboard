@@ -12,7 +12,9 @@ async function loadData() {
 
   const data = await res.json()
 
-  let html = ""
+  let html = "<h1>Login Events</h1>
+<div id="data">Loading...</div>
+"
 
   for (let i = 0; i < data.length; i++) {
     html += data[i].user_id + " | " +
